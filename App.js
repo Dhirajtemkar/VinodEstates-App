@@ -1,13 +1,39 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useState} from 'react';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
 import { StyleSheet, Text, View } from 'react-native';
+import GettingStarted from './components/GettingStarted/GettingStarted';
+import MainTabs from './screens/Navigation';
+
+const RootStack = createStackNavigator();
+const MainTabStack = createStackNavigator();
 
 export default function App() {
+  const [token, setToken] = useState(null)
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      {
+        token === null ? (
+          <RootStack.Navigator headerMode="none">
+            <RootStack.Screen
+              name="GettingStarted"
+              component={GettingStarted}
+              initialParams={{setToken: setToken}}
+            />
+          </RootStack.Navigator>
+        ) : (
+          <MainTabStack.Navigator headerMode="none">
+            <MainTabStack.Screen
+              name="Main"
+              component={MainTabs}
+            />
+          </MainTabStack.Navigator>
+        )
+      }
+    </NavigationContainer>
   );
 }
 
