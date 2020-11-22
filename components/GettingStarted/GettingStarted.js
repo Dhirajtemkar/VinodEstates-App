@@ -12,10 +12,25 @@ export default function GettingStarted ({route}) {
             style={styles.bgImg}
             resizeMode="cover"
         >
+            <View style={{
+                flex:1, 
+                backgroundColor: "rgba(0,0,0,0.8)",
+                alignItems: "center",
+                // justifyContent: 'center',
+                paddingVertical: height / 4,
+                }}
+            >
+            <View style={{
+                alignItems: "center",
+                justifyContent: 'center',
+            }}>
             <Image 
                 source={require("../../assets/icon2.png")}
                 // style={{ marginLeft: "5%" }}
             />
+            <Text style={{color: "#fff", fontSize: 48, fontWeight: "700", textAlign: "center", marginVertical: 20}}>Vinod Estates</Text>
+            </View>
+            <View>
             <Text>This is the GettingStarted page!</Text>
             <Button 
                 onPress={() => {
@@ -25,6 +40,8 @@ export default function GettingStarted ({route}) {
                 color="#841584"
                 accessibilityLabel="Learn more about this App"
             />
+            </View>
+            </View>
         </ImageBackground>
     )
 }
@@ -41,7 +58,6 @@ const styles = StyleSheet.create({
         width: null,
         height: null,
         backgroundColor: "rgba(0,0,0,0.8)",
-        // alignItems: "center",
-        // justifyContent: 'center',
+       
       },
 })
