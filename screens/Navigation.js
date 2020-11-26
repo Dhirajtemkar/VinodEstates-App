@@ -119,6 +119,7 @@ function MyTabBar({ state, descriptors, navigation }) {
                 width: width / 3,
                 alignItems: "center",
               }}
+              key={index * 2}
             >
               {route.name == "HomeScreen" ? (
                 <View style={styles.eachTab}>

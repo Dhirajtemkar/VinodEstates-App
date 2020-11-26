@@ -25,9 +25,11 @@ const styles = StyleSheet.create({
 export const HomeScreen = ({ navigation }) => {
     return (
       <ScreenContainer>
-        <SafeAreaView style={styleScreen.mainCont}>
-          <Home navigation={navigation} />
-        </SafeAreaView>
+        {/*<SafeAreaView style={styleScreen.mainCont}>
+    </SafeAreaView>*/}
+      <View style={styleScreen.testCont}>
+        <Home navigation={navigation} />
+      </View>
       </ScreenContainer>
     );
   };
@@ -36,9 +38,11 @@ export const HomeScreen = ({ navigation }) => {
 export const ListingScreen = ({ navigation }) => {
   return (
     <ScreenContainer>
-      <SafeAreaView style={styleScreen.mainCont}>
+       {/*<SafeAreaView style={styleScreen.mainCont}>
+    </SafeAreaView>*/}
+      <View style={styleScreen.testCont}>
         <Listings navigation={navigation} />
-      </SafeAreaView>
+      </View>
     </ScreenContainer>
   );
 };
@@ -47,9 +51,9 @@ export const ListingScreen = ({ navigation }) => {
 export const ListingInfoScreen = ({ navigation }) => {
     return (
       <ScreenContainer>
-        <SafeAreaView style={styleScreen.mainCont}>
-          <ListingInfo navigation={navigation} />
-        </SafeAreaView>
+       <SafeAreaView style={styleScreen.mainCont}>
+         <ListingInfo navigation={navigation} />
+       </SafeAreaView>
       </ScreenContainer>
     );
 };
@@ -58,9 +62,11 @@ export const ListingInfoScreen = ({ navigation }) => {
 export const ContactScreen = ({ navigation }) => {
     return (
       <ScreenContainer>
-        <SafeAreaView style={styleScreen.mainCont}>
+      {/*<SafeAreaView style={styleScreen.mainCont}>
+    </SafeAreaView>*/}
+        <View style={styleScreen.testCont}>
           <Contact navigation={navigation} />
-        </SafeAreaView>
+        </View>
       </ScreenContainer>
     );
 };
@@ -71,5 +77,11 @@ const styleScreen = StyleSheet.create({
     width: width,
     height: height,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+  testCont: {
+    flex: 1,
+    width: width,
+    height: height,
+    // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
 });
