@@ -7,6 +7,7 @@ import HomeSVG from '../assets/svg/Home';
 import SearchSVG from '../assets/svg/Search';
 import ContactSVG from '../assets/svg/Contact';
 import TabTopSVG from '../assets/svg/TabTop';
+import ListingInfo from '../components/ListingInfo/ListingInfo';
 
 const {width, height} = Dimensions.get("window");
 
@@ -23,7 +24,7 @@ const HomeStackScreen = ({ route }) => {
         }}
       >
         <HomeStack.Screen name="Home" component={HomeScreen} />
-        <HomeStack.Screen name="ListingInfo" component={ListingInfoScreen} />
+        <HomeStack.Screen name="ListingInfo" component={ListingInfo} />
       </HomeStack.Navigator>
     );
 };
@@ -36,7 +37,7 @@ const ListingStackScreen = ({ route }) => {
         }}
       >
         <ListingStack.Screen name="Listings" component={ListingScreen} />
-        <ListingStack.Screen name="ListingInfo" component={ListingInfoScreen} />
+        <ListingStack.Screen name="ListingInfo" component={ListingInfo} />
       </ListingStack.Navigator>
     );
 };
@@ -92,9 +93,9 @@ function MyTabBar({ state, descriptors, navigation }) {
             if(route.name === "HomeScreen"){
                 setBackColor("#00509D")
             } else if (route.name === "HomeScreen") {
-                setBackColor("#FFD500")
+                setBackColor("#00509D")
             } else {
-                setBackColor("#57CC99")
+                setBackColor("#00509D")
             }
 
             const event = navigation.emit({
@@ -129,12 +130,12 @@ function MyTabBar({ state, descriptors, navigation }) {
               ) : route.name == "ListingScreen" ? (
                 <View style={styles.eachTab}>
                 {/*<TabTopSVG  style={styles.topTab} color={isFocused ? "#ff264d" : "#707070"}/>*/}
-                <SearchSVG color={ isFocused ? "#FFD500" : "#C4C4C4" } />
+                <SearchSVG color={ isFocused ? "#00509D" : "#C4C4C4" } />
                 </View>
               ) : (
                 <View style={styles.eachTab}>
                 {/*<TabTopSVG  style={styles.topTab} color={isFocused ? "#ff264d" : "#707070"}/>*/}
-                <ContactSVG color={ isFocused ? "#57CC99" : "#C4C4C4" } />
+                <ContactSVG color={ isFocused ? "#00509D" : "#C4C4C4" } />
                 </View>
               )}
               
@@ -143,9 +144,9 @@ function MyTabBar({ state, descriptors, navigation }) {
                     isFocused ? (<Text style={{color: "#00509D"}}>Home</Text>) : (<View />) 
                     ) : 
                 route.name == "ListingScreen" ? ( 
-                    isFocused ? (<Text style={{color: "#FDC500"}}>Listings</Text>) : (<View />) 
+                    isFocused ? (<Text style={{color: "#00509D"}}>Listings</Text>) : (<View />) 
                     ) : 
-                    ( isFocused ? (<Text style={{color: "#57CC99"}}>Contact</Text>) : (<View />) 
+                    ( isFocused ? (<Text style={{color: "#00509D"}}>Contact</Text>) : (<View />) 
                     )
             }
             </TouchableOpacity>

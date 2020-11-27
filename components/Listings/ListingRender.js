@@ -10,15 +10,14 @@ export default function ListingRender (props) {
 
     return (
         <View style={styles.container}>
-            <View style={{width: width - 40, marginVertical: 20, marginLeft: 10}}>
-                <Text style={{color: "#C4C4C4", fontSize: 16, fontWeight: "600"}}>Listings</Text>
-            </View>
             {/* listing example */}
             <FlatList
               data={props.data}
+              showsVerticalScrollIndicator={false}
+              scrollEventThrottle={16}
               renderItem={({ item, index }) => {
                 return (
-                  <SingleList listing={item} navigation={props.navigation}/>
+                  <SingleList key={index} listing={item} navigation={props.navigation}/>
                 );
               }}
               numColumns={1}
@@ -31,11 +30,13 @@ export default function ListingRender (props) {
 const styles = StyleSheet.create({
     container: {
         width: width, 
-        // height: height + 20, 
-        backgroundColor: "#fff", 
-        elevation: 8,
-        borderTopLeftRadius: 40,
-        borderTopRightRadius: 40,
+        backgroundColor: "#fff",
+        // height: height, 
+        // elevation: 8,
+        // borderTopLeftRadius: 40,
+        // borderTopRightRadius: 40,
+        paddingTop: 20,
+        paddingBottom: height / 10,
         alignItems: "center",
     },
 })

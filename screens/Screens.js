@@ -48,15 +48,15 @@ export const ListingScreen = ({ navigation }) => {
 };
 
 // ListingsInfo screen more info abt some listing
-export const ListingInfoScreen = ({ navigation }) => {
-    return (
-      <ScreenContainer>
-       <SafeAreaView style={styleScreen.mainCont}>
-         <ListingInfo navigation={navigation} />
-       </SafeAreaView>
-      </ScreenContainer>
-    );
-};
+// export const ListingInfoScreen = ({ navigation }) => {
+//     return (
+//       <ScreenContainer>
+//        <SafeAreaView style={styleScreen.mainCont}>
+//          <ListingInfo navigation={navigation} />
+//        </SafeAreaView>
+//       </ScreenContainer>
+//     );
+// };
 
 // Contact screen for info about dad
 export const ContactScreen = ({ navigation }) => {

@@ -60,7 +60,7 @@ const Carousel = ({ data }) => {
           }}
           onScroll={Animated.event([
             { nativeEvent: { contentOffset: { x: scrollX } } },
-          ])}
+          ],  {useNativeDriver: false} )}
         />
 
         <View style={styles.dotView}>
