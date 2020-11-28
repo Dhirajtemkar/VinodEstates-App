@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {View, Dimensions, Text, StyleSheet, FlatList} from 'react-native'
 import ScreenHeader from '../Header/ScreenHeader';
 import SingleList from './SingleList';
@@ -7,12 +7,37 @@ import SingleList from './SingleList';
 const {width, height} = Dimensions.get("window");
 
 export default function ListingRender (props) {
+  const [listingData, setListingData] = useState(props.data)
+  let Filter = props.filterState; 
+  useEffect(() => {
+      if (Filter === "") {} 
+      else {
+        if (Filter === "Sale" || Filter === "Rent") {
+          const data = props.data.filter((list) => list.type === Filter)
+          setListingData(data)
+        } else if (Filter === "Commercial" || Filter === "Residential") {
+          const data = props.data.filter((list) => list.category === Filter)
+          setListingData(data)
+        } else if (Filter === "Size") {
+          setListingData(props.data)
+        } 
+      }    
+  },[props.filterState])
 
+  useEffect(() => {
+    if (props.Search === "") {
+      setListingData(props.data)
+    } else {
+      const data = props.data.filter((list) => list.name.toLowerCase().includes(props.Search.toLowerCase()) || list.locality.toLowerCase().includes(props.Search.toLowerCase()) || list.price.toLowerCase().includes(props.Search.toLowerCase()))
+      setListingData(data)
+    }
+  }, [props.Search])
+  
     return (
         <View style={styles.container}>
             {/* listing example */}
             <FlatList
-              data={props.data}
+              data={listingData}
               showsVerticalScrollIndicator={false}
               scrollEventThrottle={16}
               renderItem={({ item, index }) => {
@@ -22,7 +47,6 @@ export default function ListingRender (props) {
               }}
               numColumns={1}
             /> 
-
         </View>
     )
 }
@@ -36,7 +60,7 @@ const styles = StyleSheet.create({
         // borderTopLeftRadius: 40,
         // borderTopRightRadius: 40,
         paddingTop: 20,
-        paddingBottom: height / 10,
+        paddingBottom: height / 6,
         alignItems: "center",
     },
 })

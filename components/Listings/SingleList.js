@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {View, Dimensions, Text, StyleSheet, Platform, StatusBar, Image, TouchableOpacity, Pressable} from 'react-native'
 import { TouchableNativeFeedback } from 'react-native-gesture-handler';
+import AreaSVG from '../../assets/svg/Area';
 import BathroomSVG from '../../assets/svg/Bathroom';
 import BedroomSVG from '../../assets/svg/Bedroom';
 import LocationSVG from '../../assets/svg/Location';
@@ -24,17 +25,17 @@ export default function SingleList ({listing, navigation}) {
         <TouchableNativeFeedback 
             onPress={() => handleListClick()}
         >
-            <View style={{width: width - 40, height: height / 4.5, alignItems: 'center', borderRadius: 20}}>
-                <Carousel data={listing.images} />
+            <View style={styles.sliderView}>
+                <Carousel data={listing.images} page={"listing"} />
                 <View 
                 style={styles.listingType}>
                     <Text>{listing.type}</Text>
                 </View>
             </View>
-            <View style={{padding: 5}}>
+            <View style={{padding: 10}}>
                 <View style={styles.row}>
                     <Text style={styles.boldTit}>{listing.name}</Text>
-                    <Text style={styles.boldRate}><RupeesSVG /> {listing.price}</Text>
+                    <Text style={styles.boldRate}><RupeesSVG color={"#474643"} /> {listing.price}</Text>
                 </View>
                 <View style={styles.row}>
                     <LocationSVG />
@@ -47,7 +48,7 @@ export default function SingleList ({listing, navigation}) {
                         )
                     }
                     <Text style={styles.lastRowTxt}>{listing.bathrooms} <BathroomSVG /></Text>
-                    <Text style={styles.lastRowTxt}>{listing.sizeInSqft} sqft.</Text>
+                    <Text style={styles.lastRowTxt}><AreaSVG /> {listing.sizeInSqft} sqft.</Text>
                 </View>
             </View>
         </TouchableNativeFeedback>
@@ -57,16 +58,25 @@ export default function SingleList ({listing, navigation}) {
 
 const styles = StyleSheet.create({
     container: {
-        width: width - 40,
+        width: width - 37,
         height: height / 3,
         // borderWidth: 1,
-        borderRadius: 20
+        borderRadius: 20,
+        backgroundColor: "rgba(232, 235, 240, 0.2)",
+        marginVertical: 7,
+        alignItems: "center",
     },
     image: {
         marginLeft: -0.5,
         flex: 1,
         resizeMode: "cover",
         // justifyContent: "center"
+    },
+    sliderView: {
+        width: width - 40, 
+        height: height / 4.5, 
+        alignItems: 'center', 
+        borderRadius: 20
     },
     listingType: {
         position: "absolute", 

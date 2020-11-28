@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {View, TouchableOpacity, Text, Dimensions, StyleSheet} from 'react-native'
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator, TransitionPresets } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ContactScreen, HomeScreen, ListingInfoScreen, ListingScreen } from './Screens';
 import HomeSVG from '../assets/svg/Home';
@@ -8,7 +8,7 @@ import SearchSVG from '../assets/svg/Search';
 import ContactSVG from '../assets/svg/Contact';
 import TabTopSVG from '../assets/svg/TabTop';
 import ListingInfo from '../components/ListingInfo/ListingInfo';
-
+import FilterScreen from '../components/Filter/FilterScreen';
 const {width, height} = Dimensions.get("window");
 
 const HomeStack = createStackNavigator();
@@ -37,6 +37,13 @@ const ListingStackScreen = ({ route }) => {
         }}
       >
         <ListingStack.Screen name="Listings" component={ListingScreen} />
+        <ListingStack.Screen 
+        name="FilterScreen" 
+        component={FilterScreen} 
+        options={{
+          ...TransitionPresets.ModalSlideFromBottomIOS,
+        }}
+        />
         <ListingStack.Screen name="ListingInfo" component={ListingInfo} />
       </ListingStack.Navigator>
     );

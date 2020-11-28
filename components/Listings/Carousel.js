@@ -29,7 +29,7 @@ function infiniteScroll(dataList) {
   }, 3000);
 }
 
-const Carousel = ({ data }) => {
+const Carousel = ({ data, page }) => {
   const scrollX = new Animated.Value(0);
   let position = Animated.divide(scrollX, width);
   const [dataList, setDataList] = useState(data);
@@ -56,7 +56,7 @@ const Carousel = ({ data }) => {
           decelerationRate={"fast"}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => {
-            return <CarouselItem item={item} />;
+            return <CarouselItem item={item} page={page} />;
           }}
           onScroll={Animated.event([
             { nativeEvent: { contentOffset: { x: scrollX } } },
@@ -73,15 +73,27 @@ const Carousel = ({ data }) => {
             return (
               <Animated.View
                 key={i}
-                style={{
+                style={
+                  page === "listing" ? 
+                  {
+                  opacity,
+                  height: 5,
+                  width: 5,
+                  backgroundColor: "#fff",
+                  marginLeft: 8,
+                  marginTop: "-5%",
+                  borderRadius: 5,
+                } : {
                   opacity,
                   height: 10,
                   width: 10,
                   backgroundColor: "#fff",
                   marginLeft: 8,
-                  marginTop: "-5%",
+                  marginTop: "-17%",
                   borderRadius: 5,
-                }}
+                }
+              
+              }
               />
             );
           })}

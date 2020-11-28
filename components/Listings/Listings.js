@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import {View, Dimensions, Text, StyleSheet, Platform, StatusBar, ImageBackground, ScrollView, TextInput} from 'react-native'
-import ScreenHeader from '../Header/ScreenHeader';
+import {View, Dimensions, Text, StyleSheet, Platform, StatusBar, ScrollView, FlatList, TouchableOpacity} from 'react-native'
 import ListingRender from './ListingRender';
-import SearchSVG from '../../assets/svg/Search';
+import SearchBar from '../Search/SearchBar';
+
 // dimensions of the screen
 const {width, height} = Dimensions.get("window");
 
@@ -18,7 +18,7 @@ export default function Listings ({navigation}) {
             category: "Residential",
             furnishment: true,
             locality: "Vakola Village, Santacruz East, Mumbai",
-            description: "This property is situated in a very calm and peacefull locality. It is a complete furnizhed 2BHK flat.",
+            description: "This property is situated in a very calm and peacefull locality. It is a complete furnizhed 2BHK flat. The goal is to schedule a tour for the users based on the time given by the agents and landlords. So they visit really nice and affordable homes and can rent them.",
             price: "35,000",
             images: [
                 require('../../assets/Listings/listing1-1.jpg'), 
@@ -36,7 +36,7 @@ export default function Listings ({navigation}) {
             category: "Residential",
             furnishment: false,
             locality: "Anand Nagar, Kalina, Mumbai",
-            description: "This property is situated in a very calm and peacefull locality. It is a complete furnizhed 2BHK flat.",
+            description: "This property is situated in a very calm and peacefull locality. It is a complete furnizhed 2BHK flat. The goal is to schedule a tour for the users based on the time given by the agents and landlords. So they visit really nice and affordable homes and can rent them.",
             price: "3,50,00,000",
             images: [
                 require('../../assets/Listings/listing3-1.jpg'), 
@@ -54,7 +54,7 @@ export default function Listings ({navigation}) {
             category: "Residential",
             furnishment: true,
             locality: "Vakola Village, Santacruz East, Mumbai",
-            description: "This property is situated in a very calm and peacefull locality. It is a complete furnizhed 2BHK flat.",
+            description: "This property is situated in a very calm and peacefull locality. It is a complete furnizhed 2BHK flat. The goal is to schedule a tour for the users based on the time given by the agents and landlords. So they visit really nice and affordable homes and can rent them.",
             price: "20,000",
             images: [
                 require('../../assets/Listings/listing2-1.jpg'), 
@@ -72,7 +72,7 @@ export default function Listings ({navigation}) {
             category: "Commercial",
             furnishment: false,
             locality: "Datta Mandir Road, Santacruz East, Mumbai",
-            description: "This is a commercial block situated in at moments from the Main Road. Perfect location to open up your business.",
+            description: "This is a commercial block situated in at moments from the Main Road. Perfect location to open up your business. The goal is to schedule a tour for the users based on the time given by the agents and landlords. So they visit really nice and affordable homes and can rent them.",
             price: "25,000",
             images: [
                 require('../../assets/Listings/listing4-1.jpg'), 
@@ -81,32 +81,70 @@ export default function Listings ({navigation}) {
             amenities: ["Parking"],
         },
     ])
-    // <ImageBackground source={require('../../assets/Listings/listingBackground.png')} style={styles.image}></ImageBackground>
+
+    const [Search, setSearch] = useState("")
+
+    const [AppliedFilters, setAppliedFilters] = useState([])
+
+    const [filterState, setFilterState] = useState("");
+    const [FilterOn, setFilterOn] = useState(false);
+    const handleFilterToggle = () => {
+        navigation.navigate("FilterScreen", {
+            navigation: navigation,
+            setFilterState: setFilterState,
+        })
+    }
+    
+    const filtersOnListingPage = ["Sale", "Rent", "Commercial", "Residential", "Size"]
     return (
-        <View style={styles.container}>                            
+        <View style={styles.container}>           
             <View 
             style={{width: width}}>
                 <View style={styles.pageHeader}>
                     <Text style={styles.pageTit}>Search Listings</Text>
                 </View>
                 <View style={{alignItems: "center"}}>
-                    <View style={{width: width - 40, height: height / 15.5, flexDirection: "row", backgroundColor: "#E8EBF0", borderRadius: 5}}>
-                        <View style={{marginHorizontal: 10, flex: 0, flexDirection: "row", justifyContent: "center", height: height / 15.5, alignItems: "center"}}>
-                            <SearchSVG color={"#898881"} />
-                        </View>
-                        <TextInput 
-                            placeholder={"Search properties..."}
-                            style={styles.Searchbar}
-                            onChangeText={(searchString) => {
-                            // setSearch(searchString);
-                            // props.getSearchDone(searchString);
+                    <SearchBar handleFilterToggle={handleFilterToggle} setSearch={setSearch} Search={Search}/>
+                </View>
+                <View style={{alignItems: "center", marginTop: 10, marginLeft: 20}}>
+                    <FlatList 
+                    data={filtersOnListingPage}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    scrollEventThrottle={16}
+                    renderItem={({ item, index }) => {
+                        return (
+                            <TouchableOpacity 
+                            key={index} 
+                            style={FilterOn === true && filterState === item ? styles.onFilter1 : styles.onFilter}
+                            onPress={() => {
+                                if (FilterOn === true && filterState === item){
+                                    setFilterOn(false)
+                                    // setFilterState(item)
+                                } else if (FilterOn === true && filterState !== item) {
+                                    setFilterOn(true)
+                                    setFilterState(item)
+                                } else if (FilterOn === false) {
+                                    setFilterOn(true)
+                                    setFilterState(item)
+                                }
                             }}
-                            // value={search}
-                        />
-                    </View>
+                            > 
+                                <Text style={ FilterOn === true && filterState === item ? styles.onFilterTxt1 : styles.onFilterTxt}>{item}</Text>
+                            </TouchableOpacity>
+                        );
+                    }}
+                    // numColumns={1}
+                    />
                 </View>
             </View>
-            <ListingRender data={data} navigation={navigation}/>
+            <ListingRender 
+                data={data} 
+                navigation={navigation} 
+                AppliedFilters={AppliedFilters} 
+                filterState={filterState} 
+                Search={Search}
+            />
         </View>
     )
 }
@@ -115,6 +153,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: width,
+        height: height,
         backgroundColor: "#fff",
         // height: height,
         // marginBottom: 20,
@@ -136,21 +175,32 @@ const styles = StyleSheet.create({
         fontWeight: "700", 
         color: "#474643"
     },
-    Searchbar: {
-        // width: ,
-        flex: 2,
-        // height: "100%",
-        height: height / 16.5,
-        backgroundColor: "#E8EBF0",
-        paddingRight: 10,
-        borderRadius: 5,
-        fontSize: 15,
+    onFilter: {
+        paddingVertical: 7,
+        paddingHorizontal: 20,
+        borderRadius: 7,
+        alignItems: 'center',
+        justifyContent: "center",
+        backgroundColor: "rgba(232, 235, 240, 0.5)",
+        marginRight: 20,
+    },
+    onFilter1: {
+        paddingVertical: 7,
+        paddingHorizontal: 20,
+        borderRadius: 7,
+        alignItems: 'center',
+        justifyContent: "center",
+        backgroundColor: "#00509D",
+        marginRight: 20,
+    },
+    onFilterTxt: {
+        fontSize: 14,
         fontWeight: "700",
-        alignItems: "baseline",
-        color: "#474643",
-        // elevation: 3,
-        // shadowColor: "grey",
-        // shadowRadius: 5,
-        // shadowOpacity: 0.4,
-      },
+        color: "#00509D",
+    },
+    onFilterTxt1: {
+        fontSize: 14,
+        fontWeight: "700",
+        color: "#fff",
+    },
 })

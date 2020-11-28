@@ -1,24 +1,15 @@
 import React, {useState, useEffect} from 'react'
-import {View, Dimensions, Text, StyleSheet, SafeAreaView, Platform, StatusBar, Animated, ScrollView} from 'react-native'
-import BottomSheet from 'reanimated-bottom-sheet';
+import {View, Dimensions, Text, StyleSheet, SafeAreaView, Platform, StatusBar, Animated, ScrollView, TouchableOpacity} from 'react-native'
+import BackSVG from '../../assets/svg/Back';
+import Carousel from '../Listings/Carousel';
+import SecondHalf from './SecondHalf';
 // dimensions of the screen
 const {width, height} = Dimensions.get("window");
 
-function renderContent () {
-    return (
-        <View style={{width: width, backgroundColor: "#c4c4c4"}}>
-            <Text>This is the bottom sheet</Text> 
-            <ScrollView>
-            <View style={{width: width, height: height, backgroundColor: "#ff32cd"}}></View>
-            <View style={{width: width, height: height, backgroundColor: "#ff264d"}}></View>
-            </ScrollView>
-        </View>
-    )
-}
 
 export default function ListingInfo ({ route }) {
     const SlideInLeft = new Animated.Value(0);
-    
+    const listing = route.params.listing;
     const _start = () => {
         return Animated.parallel([
           Animated.timing(SlideInLeft, {
@@ -29,61 +20,53 @@ export default function ListingInfo ({ route }) {
         ]).start();
       };
 
-      const sheetRef = React.useRef(null);
-
       useEffect(() => {
-        sheetRef.current.snapTo(1)
+       
         _start()
       }, [])
 
-    return (
-        <SafeAreaView style={styles.container}>
-        <View 
-            style={{
-                width: width, 
-                height: height / 2.8, 
-                backgroundColor: "#fff", 
-                // position: "absolute", 
-                // top: 0, 
-                // zIndex: 5,
-            }}>
-                <Text style={{marginTop: 45}}>This is the ListingInfo page! routed from {route.params.listing.name}</Text>
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity 
+        onPress={() => {
+          route.params.navigation.pop()
+        }}
+        style={styles.backBtn}><BackSVG /></TouchableOpacity>
+      </View>
+      <ScrollView style={{zIndex: 8}}>    
+        <View style={styles.sliderView}>
+          <Carousel data={listing.images} page={"listInfo"}/>
         </View>
-        {/*
-            <View style={{height: height / 3, width: width, zIndex: 1,}}><Text>This is virtual!!!</Text></View>
-                <ScrollView style={{zIndex: 8}}>    
-            <Animated.View
-            style={{
-                transform: [
-                  {
-                    translateY: SlideInLeft.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [400, 0]
-                    })
-                  }
-                ],
-                // flex: 1,
-                height: height,
-                width: width,
-                borderTopLeftRadius: 40,
-                borderTopRightRadius: 40,
-                elevation: 5,
-                backgroundColor: "#c4c4c4",
-                justifyContent: "center",
-                zIndex: 8,
-              }}
-            ><Text>This is the animated view</Text>
-            </Animated.View>
-            </ScrollView>*/}
-            <BottomSheet
-                ref={sheetRef}
-                snapPoints={[height, height / 1.5]}
-                borderRadius={40}
-                renderContent={renderContent}
-                zIndex="10"
-            />
-        </SafeAreaView>
-    )
+        <View style={styles.virtualView} />
+        <Animated.View
+        style={{
+          transform: [
+            {
+              translateY: SlideInLeft.interpolate({
+                inputRange: [0, 1],
+                outputRange: [-485, 0]
+              })
+            }
+          ],
+          // flex: 1,
+          height: height,
+          width: width,
+          borderTopLeftRadius: 40,
+          borderTopRightRadius: 40,
+          elevation: 5,
+          backgroundColor: "#fff",
+          // justifyContent: "center",
+          alignItems: "center",
+          zIndex: 0,
+          // padding: 20, 
+          }}
+        >
+          <SecondHalf listing={listing} />
+        </Animated.View>
+      </ScrollView>
+    </SafeAreaView>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -92,5 +75,35 @@ const styles = StyleSheet.create({
         width: width,
         height: height,
         // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    }
+    },
+    header: {
+      position: "absolute",
+      top: 0,
+      paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+      width: width,
+      flexDirection: "row",
+      // justifyContent: "center",
+      alignItems: "center",
+      zIndex: 15,
+    },
+    backBtn: {
+      width: 40, 
+      height: 40, 
+      borderRadius: 7, 
+      backgroundColor: "rgba(0,0,0,0.2)", 
+      justifyContent: "center", 
+      alignItems: 'center',
+      marginLeft: 20, 
+    },
+    sliderView: {
+      width: width, 
+      height: height / 2.4, 
+      backgroundColor: "#fff", 
+      position: "absolute", 
+      top: 0, 
+      zIndex: 5,
+      alignItems: "center",
+      borderWidth: 2,
+    },
+    virtualView: {height: height / 2.8, width: width, zIndex: 1,},
 })
