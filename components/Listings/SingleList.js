@@ -29,7 +29,7 @@ export default function SingleList ({listing, navigation}) {
                 <Carousel data={listing.images} page={"listing"} />
                 <View 
                 style={styles.listingType}>
-                    <Text>{listing.type}</Text>
+                    <Text style={{color: "#00509D"}}>{listing.type}</Text>
                 </View>
             </View>
             <View style={{padding: 10}}>
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         marginVertical: 2,
     },
     boldTit: {
-        color: "#474643", 
+        color: "#00509D", 
         fontSize: 16, 
         fontWeight: "700", 
         flex: 2,

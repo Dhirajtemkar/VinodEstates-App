@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
-import {View, TouchableOpacity, Text, StyleSheet, Dimensions} from 'react-native';
+import {View, TouchableOpacity, Text, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import RupeesSVG from '../../assets/svg/Rupees';
 import LocationSVG from '../../assets/svg/Location';
 import BedroomSVG from '../../assets/svg/Bedroom';
 import BathroomSVG from '../../assets/svg/Bathroom';
 import AreaSVG from '../../assets/svg/Area';
 import ListInfoHeader from './ListInfoHeader';
+import SwimmingSVG from '../../assets/svg/Swimming';
+import GymSVG from '../../assets/svg/Gym';
+import GardenSVG from '../../assets/svg/Garden';
+import ParkingSVG from '../../assets/svg/Parking';
 
 const {width, height} = Dimensions.get("window");
 
@@ -17,6 +21,45 @@ export default function SecondHalf (props) {
                 <Text style={{fontSize: 16, fontWeight: "700", color: "#00509D", marginVertical: 5}}>Details</Text>
                 <Text style={{fontSize: 14, fontWeight: '300', color: "#474643", marginVertical: 5, textAlign: "justify", letterSpacing: 0.5}}>{props.listing.description}</Text>
             </View>
+            <Text style={{marginVertical: 10, fontSize: 16, fontWeight: "700", color: "#00509D", marginVertical: 5}}>Aminities</Text>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <View style={{marginVertical: 10, flexDirection: "row"}}>
+                { //["Swimming-Pool", "Gym", "Garden", "Parking"]
+                    props.listing.amenities.map((each) => {
+                        if(each === "Swimming Pool") {
+                            return (
+                                <View style={{marginRight: 10, alignItems :"center"}}>
+                                    <SwimmingSVG />
+                                    <Text style={{color:"#474643", fontSize: 14, fontWeight: "700", width: 75, textAlign: "center"}}>{each}</Text>
+                                </View>
+                            )
+                        } else if (each === "Gym") {
+                            return (
+                                <View style={{marginRight: 10, alignItems :"center"}}>
+                                    <GymSVG />
+                                    <Text style={{color:"#474643", fontSize: 14, fontWeight: "700", width: 75, textAlign: "center"}}>{each}</Text>
+                                </View>
+                            )
+                        } else if (each === "Garden") {
+                            return (
+                                <View style={{marginRight: 10, alignItems :"center"}}>
+                                    <GardenSVG />
+                                    <Text style={{color:"#474643", fontSize: 14, fontWeight: "700", width: 75, textAlign: "center"}}>{each}</Text>
+                                </View>
+                            )
+                        } else if (each === "Parking") {
+                            return (
+                                <View style={{marginRight: 10, alignItems :"center"}}>
+                                    <ParkingSVG />
+                                    <Text style={{color:"#474643", fontSize: 14, fontWeight: "700", width: 75, textAlign: "center"}}>{each}</Text>
+                                </View>
+                            )
+                        }
+                    })
+                }
+
+            </View>
+            </ScrollView>
         </View>
     )
 }

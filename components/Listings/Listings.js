@@ -25,7 +25,7 @@ export default function Listings ({navigation}) {
                 require('../../assets/Listings/listing2-1.jpg'), 
                 require('../../assets/Listings/listing1-1.jpg')
             ],
-            amenities: ["Swimming-Pool", "Gym", "Garden", "Parking"],
+            amenities: ["Swimming Pool", "Gym", "Garden", "Parking"],
         },
         {
             name: "Gorgeous Kalina Bunglow",

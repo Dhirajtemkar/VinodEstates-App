@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {View, Dimensions, Text, StyleSheet, SafeAreaView, Platform, StatusBar, Animated, ScrollView, TouchableOpacity} from 'react-native'
 import BackSVG from '../../assets/svg/Back';
 import Carousel from '../Listings/Carousel';
+import BottomActions from './BottomActions';
 import SecondHalf from './SecondHalf';
 // dimensions of the screen
 const {width, height} = Dimensions.get("window");
@@ -34,7 +35,7 @@ export default function ListingInfo ({ route }) {
         }}
         style={styles.backBtn}><BackSVG /></TouchableOpacity>
       </View>
-      <ScrollView style={{zIndex: 8}}>    
+      <ScrollView style={{zIndex: 8,}}>    
         <View style={styles.sliderView}>
           <Carousel data={listing.images} page={"listInfo"}/>
         </View>
@@ -50,7 +51,7 @@ export default function ListingInfo ({ route }) {
             }
           ],
           // flex: 1,
-          height: height,
+          // minHeight: height - (height / 2.8),
           width: width,
           borderTopLeftRadius: 40,
           borderTopRightRadius: 40,
@@ -59,12 +60,13 @@ export default function ListingInfo ({ route }) {
           // justifyContent: "center",
           alignItems: "center",
           zIndex: 0,
-          // padding: 20, 
+          paddingBottom: 75, 
           }}
         >
           <SecondHalf listing={listing} />
         </Animated.View>
       </ScrollView>
+      <BottomActions />
     </SafeAreaView>
   )
 }
@@ -74,6 +76,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: width,
         height: height,
+        alignItems: "center",
         // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     },
     header: {

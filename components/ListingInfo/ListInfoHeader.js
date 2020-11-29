@@ -5,6 +5,7 @@ import LocationSVG from '../../assets/svg/Location';
 import BedroomSVG from '../../assets/svg/Bedroom';
 import BathroomSVG from '../../assets/svg/Bathroom';
 import AreaSVG from '../../assets/svg/Area';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const {width, height} = Dimensions.get("window");
 
@@ -23,15 +24,34 @@ export default function ListInfoHeader (props) {
                 </Text>
             </View> 
             <Text style={{flexDirection: "row", marginVertical: 5, width: "100%"}}>
-                <LocationSVG page={"listInfo"}/> <Text style={{color: "#474643", fontSize: 14, fontWeight: "400"}}>{props.listing.locality}</Text>
+                <LocationSVG page={"listInfo"}/> <Text style={{color: "#474643", fontSize: 14, fontWeight: "400", marginLeft: 5}}>{props.listing.locality}</Text>
             </Text>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                <View style={styles.badgeRow}>
+                    <View style={styles.badge}>
+                        <Text style={styles.badgeTxt}>{props.listing.type}</Text>
+                    </View>
+                    <View style={styles.badge}>
+                        <Text style={styles.badgeTxt}>{props.listing.category}</Text>
+                    </View>
+                    <View style={styles.badge}>
+                    {
+                        props.listing.furnishment ? (
+                            <Text style={styles.badgeTxt}>Furnished</Text>
+                            ) : (
+                            <Text style={styles.badgeTxt}>Un-Furnished</Text>
+                        )
+                    }
+                    </View>
+                </View>
+            </ScrollView>
             <View style={styles.infoRow}>
                 {
                     props.listing.category === "Commercial" ? (<View />) : (
                         <Text style={styles.lastRowTxt}><BedroomSVG /> {props.listing.bedrooms} Beds</Text>
                     )
                 }
-                <Text style={styles.lastRowTxt}><BathroomSVG /> {props.listing.bathrooms} Baths</Text>
+                <Text style={styles.lastRowTxt}><BathroomSVG /> {props.listing.bathrooms} Bathrooms</Text>
                 <Text style={styles.lastRowTxt}><AreaSVG /> {props.listing.sizeInSqft} sqft.</Text>
             </View>
         </View>
@@ -57,14 +77,37 @@ const styles = StyleSheet.create({
         textAlign: "right",
         marginTop: 5,
     },
+    badgeRow: {
+        display: "flex",
+        flexDirection: "row",
+        width: "100%",
+        marginVertical: 10,
+    },
+    badge: {
+        paddingVertical: 7,
+        paddingHorizontal: 20,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "rgba(232, 235, 240, 0.2)",
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: "#00509D",
+        marginRight: 10,
+    },
+    badgeTxt: {
+        color: "#00509D",
+        fontSize: 16,
+        fontWeight: "700",
+    },
     infoRow: {
         display: "flex",
         flexDirection: "row",
         width: "100%",
         marginVertical: 5,
+        // justifyContent: "space-around",
     },
     lastRowTxt: {
-        marginRight: 17,
+        marginRight: 20,
         fontSize: 16,
         fontWeight: "700",
         color: "#898881",

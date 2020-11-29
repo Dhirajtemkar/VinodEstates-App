@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator, TransitionPresets } from "@react-navigation/stack";
 
 import { StyleSheet, Text, View } from 'react-native';
 import GettingStarted from './components/GettingStarted/GettingStarted';
 import MainTabs from './screens/Navigation';
+import { GettingStartedScreen } from './screens/Screens';
+import StartedTwo from './components/GettingStarted/StartedTwo';
 
 const RootStack = createStackNavigator();
 const MainTabStack = createStackNavigator();
@@ -20,8 +22,19 @@ export default function App() {
           <RootStack.Navigator headerMode="none">
             <RootStack.Screen
               name="GettingStarted"
-              component={GettingStarted}
+              component={GettingStartedScreen}
+              // initialParams={{setToken: setToken}}
+              // options={{
+              //   ...TransitionPresets.SlideFromRightIOS,
+              // }}
+            />
+            <RootStack.Screen
+              name="StartedTwo"
+              component={StartedTwo}
               initialParams={{setToken: setToken}}
+              options={{
+                ...TransitionPresets.SlideFromRightIOS,
+              }}
             />
           </RootStack.Navigator>
         ) : (

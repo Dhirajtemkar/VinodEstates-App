@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SafeAreaView, View, StyleSheet, StatusBar, Dimensions } from "react-native";
 import Contact from "../components/Contact/Contact";
+import GettingStarted from "../components/GettingStarted/GettingStarted";
 import Home from "../components/Home/Home";
 import ListingInfo from "../components/ListingInfo/ListingInfo";
 
@@ -47,17 +48,6 @@ export const ListingScreen = ({ navigation }) => {
   );
 };
 
-// ListingsInfo screen more info abt some listing
-// export const ListingInfoScreen = ({ navigation }) => {
-//     return (
-//       <ScreenContainer>
-//        <SafeAreaView style={styleScreen.mainCont}>
-//          <ListingInfo navigation={navigation} />
-//        </SafeAreaView>
-//       </ScreenContainer>
-//     );
-// };
-
 // Contact screen for info about dad
 export const ContactScreen = ({ navigation }) => {
     return (
@@ -69,6 +59,20 @@ export const ContactScreen = ({ navigation }) => {
         </View>
       </ScreenContainer>
     );
+};
+
+
+// Contact screen for info about dad
+export const GettingStartedScreen = ({ navigation }) => {
+  return (
+    <ScreenContainer>
+    {/*<SafeAreaView style={styleScreen.mainCont}>
+  </SafeAreaView>*/}
+      <View style={styleScreen.testCont}>
+        <GettingStarted navigation={navigation} />
+      </View>
+    </ScreenContainer>
+  );
 };
 
 const styleScreen = StyleSheet.create({
