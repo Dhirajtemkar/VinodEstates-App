@@ -4,8 +4,8 @@ import BottomImgSVG from '../../assets/svg/BottomImg';
 
 // dimensions of the screen
 const {width, height} = Dimensions.get("window");
-
-export default function GettingStarted ({navigation}) {
+//sheetal's input 
+export default function GettingStarted ({route}) {
     // const {setToken} = route.params
     // return (
     //     <ImageBackground 
