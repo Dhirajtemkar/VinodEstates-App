@@ -1,10 +1,5 @@
 import React, {useState} from 'react';
 import {View, TouchableOpacity, Text, StyleSheet, Dimensions, ScrollView} from 'react-native';
-import RupeesSVG from '../../assets/svg/Rupees';
-import LocationSVG from '../../assets/svg/Location';
-import BedroomSVG from '../../assets/svg/Bedroom';
-import BathroomSVG from '../../assets/svg/Bathroom';
-import AreaSVG from '../../assets/svg/Area';
 import ListInfoHeader from './ListInfoHeader';
 import SwimmingSVG from '../../assets/svg/Swimming';
 import GymSVG from '../../assets/svg/Gym';
@@ -17,10 +12,7 @@ export default function SecondHalf (props) {
     return (
         <View style={styles.container}>
             <ListInfoHeader listing={props.listing}/> 
-            <View style={{marginVertical: 10}}>
-                <Text style={{fontSize: 16, fontWeight: "700", color: "#00509D", marginVertical: 5}}>Details</Text>
-                <Text style={{fontSize: 14, fontWeight: '300', color: "#474643", marginVertical: 5, textAlign: "justify", letterSpacing: 0.5}}>{props.listing.description}</Text>
-            </View>
+            
             <Text style={{marginVertical: 10, fontSize: 16, fontWeight: "700", color: "#00509D", marginVertical: 5}}>Aminities</Text>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View style={{marginVertical: 10, flexDirection: "row"}}>
@@ -60,6 +52,10 @@ export default function SecondHalf (props) {
 
             </View>
             </ScrollView>
+            <View style={{marginVertical: 10}}>
+                <Text style={{fontSize: 16, fontWeight: "700", color: "#00509D", marginVertical: 5}}>Details</Text>
+                <Text style={{fontSize: 14, fontWeight: '300', color: "#474643", marginVertical: 5, textAlign: "justify", letterSpacing: 0.5}}>{props.listing.description}</Text>
+            </View>
         </View>
     )
 }

@@ -5,7 +5,7 @@ import BottomImgSVG from '../../assets/svg/BottomImg';
 // dimensions of the screen
 const {width, height} = Dimensions.get("window");
 //sheetal's input 
-export default function GettingStarted ({route}) {
+export default function GettingStarted ({navigation}) {
     // const {setToken} = route.params
     // return (
     //     <ImageBackground 
@@ -68,7 +68,7 @@ export default function GettingStarted ({route}) {
         <Button 
             onPress={() => {
                 // route.params.setToken("Open")
-                navigation.navigate("StartedTwo")
+                navigation.navigate("StartedTwo", {navigation: navigation})
             }} 
             title="Getting Started"
             color="#FDC500"

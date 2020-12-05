@@ -24,6 +24,13 @@ const HomeStackScreen = ({ route }) => {
         }}
       >
         <HomeStack.Screen name="Home" component={HomeScreen} />
+        <HomeStack.Screen 
+          name="FilterScreen" 
+          component={FilterScreen} 
+          options={{
+            ...TransitionPresets.ModalSlideFromBottomIOS,
+          }}
+        />
         <HomeStack.Screen name="ListingInfo" component={ListingInfo} />
       </HomeStack.Navigator>
     );
@@ -65,6 +72,9 @@ function MainTabs({ route }) {
     return (
       <Tabs.Navigator 
         tabBar={(props) => <MyTabBar {...props} />}
+        tabBarOptions={{
+          keyboardHidesTabBar: true
+       }}  
       >
         <Tabs.Screen name="HomeScreen" component={HomeStackScreen} />
         <Tabs.Screen name="ListingScreen" component={ListingStackScreen} />
@@ -114,11 +124,26 @@ function MyTabBar({ state, descriptors, navigation }) {
             if (
               !isFocused &&
               !event.defaultPrevented) {
-              navigation.navigate(route.name);
+                if (route.name === "HomeScreen") {
+                  navigation.navigate("HomeScreen", {
+                    screen: "Home",
+                    params: {
+                      page: "main"
+                    },
+                  });
+                } else if (route.name === "ListingScreen") {
+                  navigation.navigate("ListingScreen", {
+                    screen: "Listings",
+                    params: {
+                      page: "main"
+                    },
+                  }) 
+                } else {
+                  navigation.navigate(route.name)
+                }
             } else {
             }
           };
-  
           return (
             <TouchableOpacity
               onPress={onPress}

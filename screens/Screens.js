@@ -3,7 +3,6 @@ import { SafeAreaView, View, StyleSheet, StatusBar, Dimensions } from "react-nat
 import Contact from "../components/Contact/Contact";
 import GettingStarted from "../components/GettingStarted/GettingStarted";
 import Home from "../components/Home/Home";
-import ListingInfo from "../components/ListingInfo/ListingInfo";
 
 // dimensions of the screen
 const {width, height} = Dimensions.get("window");
@@ -23,26 +22,26 @@ const styles = StyleSheet.create({
 });
 
 // Home Screen
-export const HomeScreen = ({ navigation }) => {
+export const HomeScreen = ({ navigation, route }) => {
     return (
       <ScreenContainer>
         {/*<SafeAreaView style={styleScreen.mainCont}>
     </SafeAreaView>*/}
       <View style={styleScreen.testCont}>
-        <Home navigation={navigation} />
+        <Home navigation={navigation} route={route} />
       </View>
       </ScreenContainer>
     );
   };
 
 // Listings Screen to show all the listings
-export const ListingScreen = ({ navigation }) => {
+export const ListingScreen = ({ navigation, route }) => {
   return (
     <ScreenContainer>
        {/*<SafeAreaView style={styleScreen.mainCont}>
     </SafeAreaView>*/}
       <View style={styleScreen.testCont}>
-        <Listings navigation={navigation} />
+        <Listings navigation={navigation} route={route} />
       </View>
     </ScreenContainer>
   );

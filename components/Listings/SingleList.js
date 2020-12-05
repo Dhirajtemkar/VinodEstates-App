@@ -15,10 +15,20 @@ const {width, height} = Dimensions.get("window");
 
 export default function SingleList ({listing, navigation}) {
     const handleListClick = () => {
-        navigation.navigate("ListingInfo", {
-            listing: listing,
-            navigation: navigation,
-        })
+
+        navigation.navigate('ListingScreen', {
+            screen: 'ListingInfo',
+            params: {
+                listing: listing,
+                navigation: navigation,
+                page: "listing",
+            },
+          });
+
+        // navigation.navigate("ListingInfo", {
+        //     listing: listing,
+        //     navigation: navigation,
+        // })
     }
     return (
         <View style={styles.container}> 
@@ -63,7 +73,7 @@ const styles = StyleSheet.create({
         // borderWidth: 1,
         borderRadius: 20,
         backgroundColor: "rgba(232, 235, 240, 0.2)",
-        marginVertical: 7,
+        // marginVertical: 7,
         alignItems: "center",
     },
     image: {

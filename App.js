@@ -3,18 +3,19 @@ import React, {useState} from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator, TransitionPresets } from "@react-navigation/stack";
 
-import { StyleSheet, Text, View } from 'react-native';
+import { LogBox, StyleSheet, Text, View } from 'react-native';
 import GettingStarted from './components/GettingStarted/GettingStarted';
 import MainTabs from './screens/Navigation';
 import { GettingStartedScreen } from './screens/Screens';
 import StartedTwo from './components/GettingStarted/StartedTwo';
+import StartedThree from './components/GettingStarted/StartedThree';
 
 const RootStack = createStackNavigator();
 const MainTabStack = createStackNavigator();
 
 export default function App() {
   const [token, setToken] = useState(null)
-
+  LogBox.ignoreAllLogs();
   return (
     <NavigationContainer>
       {
@@ -24,13 +25,21 @@ export default function App() {
               name="GettingStarted"
               component={GettingStartedScreen}
               // initialParams={{setToken: setToken}}
-              // options={{
-              //   ...TransitionPresets.SlideFromRightIOS,
-              // }}
+              options={{
+                ...TransitionPresets.SlideFromRightIOS,
+              }}
             />
             <RootStack.Screen
               name="StartedTwo"
               component={StartedTwo}
+              initialParams={{setToken: setToken}}
+              options={{
+                ...TransitionPresets.SlideFromRightIOS,
+              }}
+            />
+            <RootStack.Screen
+              name="StartedThree"
+              component={StartedThree}
               initialParams={{setToken: setToken}}
               options={{
                 ...TransitionPresets.SlideFromRightIOS,

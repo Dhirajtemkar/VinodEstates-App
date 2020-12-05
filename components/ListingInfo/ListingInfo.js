@@ -31,7 +31,18 @@ export default function ListingInfo ({ route }) {
       <View style={styles.header}>
         <TouchableOpacity 
         onPress={() => {
-          route.params.navigation.pop()
+          if(route.params.page === "listing") {
+            route.params.navigation.pop()
+          } else if (route.params.page === "home") {
+            route.params.navigation.navigate('HomeScreen', {
+              screen: 'Home',
+              params: {
+                  // listing: listing,
+                  navigation: route.params.navigation,
+                  page: "listingInfo",
+              },
+            })
+          }
         }}
         style={styles.backBtn}><BackSVG /></TouchableOpacity>
       </View>

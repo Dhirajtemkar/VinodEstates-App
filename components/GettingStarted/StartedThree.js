@@ -1,17 +1,16 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect} from 'react'
 import {View, Dimensions, Text, StyleSheet, Button, Animated, Image} from 'react-native'
 import CloudLeftSVG from '../../assets/svg/CloudLeft';
-import ResGettingStartedSVG from '../../assets/svg/ResGettingStarted';
+import ComGettingStartedSVG from '../../assets/svg/ComGettingStarted';
 
 // dimensions of the screen
 const {width, height} = Dimensions.get("window");
 
-export default function StartedTwo({ route }) {
+export default function StartedThree({route}) {
     const SlideInLeft = new Animated.Value(0);
     const SlideInRight = new Animated.Value(0);
     const SlideInUp = new Animated.Value(0);
     const SlideInUp2 = new Animated.Value(0);
-    const fadeAnim = useRef(new Animated.Value(0)).current
 
     const _start = () => {
         return Animated.parallel([
@@ -35,10 +34,6 @@ export default function StartedTwo({ route }) {
             duration: 900,
             useNativeDriver: true
           }),
-          Animated.timing(fadeAnim, {
-              toValue: 1,
-              duration: 1000,
-            }),
         ]).start();
       };
       useEffect(() => {
@@ -71,7 +66,7 @@ export default function StartedTwo({ route }) {
                     <CloudLeftSVG />
                 </Animated.View>
                 <View>
-                    <ResGettingStartedSVG />
+                    <ComGettingStartedSVG />
                 </View>
                 <Animated.View
                 style={{
@@ -103,7 +98,9 @@ export default function StartedTwo({ route }) {
                 marginHorizontal: 20,
                 }}
             >
-                <Text style={{fontSize: 20, fontWeight: "700", color: "#fff", textAlign: "center"}}>Find homes, Apartments, open houses near Santacruz Area.</Text>
+                <Text style={{fontSize: 20, fontWeight: "700", color: "#fff", textAlign: "center"}}>
+                Browse through real estate options and filter the listings to find out the right prospects for you.
+                </Text>
             </Animated.View>
             <Animated.View
                 style={{
@@ -117,17 +114,17 @@ export default function StartedTwo({ route }) {
                 ],
                 marginVertical: 20,
                 marginHorizontal: 20,
-                width: width / 2
+                width: width / 2,
                 }}
             >
                 <View style={{marginVertical: 20}}>
                     <Button 
                     onPress={() => {
-                        route.params.navigation.navigate("StartedThree", {navigation: route.params.navigation})
+                        route.params.setToken("Open")
                     }} 
-                    title="Know More"
-                    color="#FDC500"
-                    style={{borderRadius: 15, elevation: 7, width: width / 4, opacity: fadeAnim, paddingHorizontal: 20, paddingVertical: 7}}
+                    title="Done"
+                    color="#00509D"
+                    style={{borderRadius: 15, elevation: 7,  marginVertical: 20, paddingHorizontal: 20, paddingVertical: 7}}
                     />
                 </View>
             </Animated.View>
@@ -139,7 +136,7 @@ export default function StartedTwo({ route }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#00509D",
+        backgroundColor: "#FDC500",
         alignItems: "center",
         justifyContent: "center",
     }
