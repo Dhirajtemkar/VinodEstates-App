@@ -1,15 +1,29 @@
 import React, {useState, useEffect} from 'react'
-import {View, Dimensions, Text, StyleSheet, Platform, StatusBar, ScrollView, FlatList, TouchableOpacity} from 'react-native'
+import {View, Dimensions, Text, StyleSheet, Platform, StatusBar, ScrollView, FlatList, TouchableOpacity, Image} from 'react-native'
 import ListingRender from './ListingRender';
 import SearchBar from '../Search/SearchBar';
 import { listingData } from '../../data';
-
+import { db } from '../../firebase/Firebase';
 // dimensions of the screen
 const {width, height} = Dimensions.get("window");
 
 export default function Listings ({navigation, route}) {
     // console.log(navigation)
-    const [data, setData] = useState(listingData)
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(true);
+    
+    useEffect(async () => {
+        let temp = []
+        let dbRef = db.collection('listings');
+        let dbData = await dbRef.get();
+        for (const doc of dbData.docs){
+            temp.push(doc.data())
+        }
+        setData(temp)
+        // setDbListings(temp)    
+        setLoading(false)
+        console.log(temp)
+    }, [])
 
     const [Search, setSearch] = useState("")
 
@@ -76,19 +90,27 @@ export default function Listings ({navigation, route}) {
                     />
                 </View>
             </View>
-            <ListingRender 
-                data={data} 
-                navigation={navigation} 
-                AppliedFilters={AppliedFilters} 
-                filterState={filterState} 
-                Search={Search}
-                routedPage={route.params.page}
-                filterScreen={route.params.filters}
-                setFilterState={setFilterState}
-                setFilterOn={setFilterOn}
-                route={route}
-                // homeFilter={route.params === undefined ? "" : route.params.filter}
-            />
+                {
+                    loading === true ? (
+                        <View style={{width: width, height: height / 2, alignItems: "center", justifyContent:"center"}}>
+                            <Image source={require('../../assets/84.gif')} />
+                        </View>) : (
+                        <ListingRender 
+                            data={data} 
+                            navigation={navigation} 
+                            AppliedFilters={AppliedFilters} 
+                            filterState={filterState} 
+                            Search={Search}
+                            routedPage={route.params.page}
+                            filterScreen={route.params.filters}
+                            setFilterState={setFilterState}
+                            setFilterOn={setFilterOn}
+                            route={route}
+                            // homeFilter={route.params === undefined ? "" : route.params.filter}
+                        />
+                    )
+                }
+            
         </View>
     )
 }

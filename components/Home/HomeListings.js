@@ -23,7 +23,7 @@ export default function HomeListings ({navigation, listing}) {
     return (
         <TouchableOpacity style={styles.container} onPress={() => handleListingRoute()}>
             <View style={styles.sliderContainer}>
-                <Image source={listing.images[0]} style={styles.img}/>
+                <Image source={{ uri: listing.images[0] }} style={styles.img}/>
                 <View 
                 style={styles.listingType}>
                     <Text style={{color: "#00509D"}}>{listing.type}</Text>

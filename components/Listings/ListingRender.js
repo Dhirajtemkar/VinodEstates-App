@@ -118,25 +118,24 @@ export default function ListingRender (props) {
               showsVerticalScrollIndicator={false}
               scrollEventThrottle={16}
               renderItem={({ item, index }) => {
-                
-                  return (
-                    <Animated.View 
-                    style={{
-                      transform: [
-                          {
-                          translateY: SlideInUp.interpolate({
-                              inputRange: [0, 1],
-                              outputRange: [5 * (index + 1), -((index + 1) * 10)]
-                          })
-                          }
-                      ],
-                      marginTop: 20,
-                      }}
-                    >
-                    <SingleList key={index} listing={item} navigation={props.navigation}/>
-                    </Animated.View>
-                    );
-              }}
+                return (
+                  <Animated.View 
+                  style={{
+                    transform: [
+                        {
+                        translateY: SlideInUp.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: [5 * (index + 1), -((index + 1) * 10)]
+                        })
+                        }
+                    ],
+                    marginTop: 20,
+                    }}
+                  >
+                  <SingleList key={index} listing={item} navigation={props.navigation}/>
+                  </Animated.View>
+                  );
+                }}
               numColumns={1}
             /> 
         </View>
