@@ -13,6 +13,14 @@ export default function BottomActions(props) {
     }
     const handleBookBtn = () => {
         setBook(!book)
+        props.navigation.navigate('ContactScreen', {
+          screen: 'Contact',
+          params: {
+              // listing: listing,
+              navigation: props.navigation,
+              page: "listings",
+          },
+        });
     }
     return (
         <View style={styles.container}>

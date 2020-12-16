@@ -6,12 +6,24 @@ import CallSVG from '../../assets/svg/Call';
 // dimensions of the screen
 const {width, height} = Dimensions.get("window");
 
-export default function Contact () {
+export default function Contact ({ navigation }) {
     const [call, setCall] = useState(false)
     const [book, setBook] = useState(false)
     const handleCallBtn = () => {
         setCall(!call)
         Linking.openURL(`tel:8767809709`);
+    }
+
+    const handleListingRoute = () => {
+        navigation.navigate('ListingScreen', {
+            screen: 'Listings',
+            params: {
+                // listing: listing,
+                navigation: navigation,
+                page: "Contact",
+                homeFilter: "",
+            },
+          });
     }
     return (
     <ImageBackground source={require('../../assets/Home/homeBackground.png')} style={styles.image}>
@@ -22,8 +34,8 @@ export default function Contact () {
                     <Image source={require('../../assets/Contact/dad.png')} style={styles.man}/> 
                     <Text style={styles.name}>Vinod Temkar</Text>
                 </View>
-                <TouchableOpacity style = {styles.topBtn}>
-                    <Text style = {{color: '#00509D',fontSize:20,fontWeight:'bold'}}onPress={() => handleCallBtn()}>Search Properties</Text>
+                <TouchableOpacity style = {styles.topBtn} onPress={() => handleListingRoute()}>
+                    <Text style = {{color: '#00509D',fontSize:20,fontWeight:'bold'}} >Search Properties</Text>
                 </TouchableOpacity> 
 
                 <View style={styles.desc}>
@@ -38,7 +50,7 @@ export default function Contact () {
                             <View style={{flex: 0.5, alignItems: "center", justifyContent: "center"}}>
                                 <CallSVG color='white' />
                             </View>
-                            <Text style={styles.bookBtnTxt} onPress={() => handleCallBtn()}>Contact</Text>
+                            <Text style={styles.bookBtnTxt}>Contact</Text>
                         </TouchableOpacity>
                     </View>
                 </View>  
@@ -113,9 +125,12 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontWeight: "700",
         fontSize: 18,
-        padding:'5%',
+        // padding:'5%',
         flex: 1.5,
-        textAlign: "center",
+        paddingLeft: 60,
+        justifyContent: "center"
+        // textAlign: "center",
+
       }
    
 })

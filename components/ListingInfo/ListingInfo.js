@@ -77,7 +77,7 @@ export default function ListingInfo ({ route }) {
           <SecondHalf listing={listing} />
         </Animated.View>
       </ScrollView>
-      <BottomActions />
+      <BottomActions navigation={route.params.navigation} />
     </SafeAreaView>
   )
 }
