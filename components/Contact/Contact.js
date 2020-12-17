@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
         // justifyContent: "center"
     },
     man: {
-        width: width / 2.5,
-        height: width / 2.5,
+        width: width / 2.8,
+        height: width / 2.8,
         borderRadius: width / 2,
         borderWidth: 3,
         paddingLeft: 40,
@@ -106,6 +106,8 @@ const styles = StyleSheet.create({
         backgroundColor:'#FFFFFF',
         // paddingBottom: width / 3,
         height: width, 
+        borderTopLeftRadius: 40,
+        borderTopRightRadius: 40,
       },
       bookBtn: {
         flex: 1.5, 
